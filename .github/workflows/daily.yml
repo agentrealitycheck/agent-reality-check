@@ -1,0 +1,42 @@
+name: Daily run
+
+on:
+  schedule:
+    - cron: "30 13 * * *"   # 13:30 UTC = 14:30 Belgrade (winter time). Post goes out at 15:00.
+  workflow_dispatch: {}     # "Run workflow" button for manual runs
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-run
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run benchmark
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          HELIUS_API_KEY: ${{ secrets.HELIUS_API_KEY }}
+          JUPITER_API_KEY: ${{ secrets.JUPITER_API_KEY }}
+        run: python -u runner/run.py run
+
+      - name: Commit results
+        run: |
+          git config user.name "arc-runner"
+          git config user.email "arc-runner@users.noreply.github.com"
+          git add site/data.js runner/state.json runs/
+          git diff --cached --quiet && echo "nothing to commit" && exit 0
+          git commit -m "Run: day $(python -c "import json;print(json.load(open('runner/state.json'))['day'])")"
+          git push

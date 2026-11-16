@@ -1,0 +1,20 @@
+{
+  "_note": "Days 1-15 (Swap routing). Days 16+ need new task types that are not built yet; the runner stops with a clear message when it reaches them. Day 11 is reserved for a community task: replace it with the picked submission.",
+  "tasks": [
+    { "day": 1,  "type": "swap", "in": "USDC", "out": "SOL",     "amount": 50 },
+    { "day": 2,  "type": "swap", "in": "SOL",  "out": "USDC",    "amount": 0.5 },
+    { "day": 3,  "type": "swap", "in": "USDC", "out": "JUP",     "amount": 100 },
+    { "day": 4,  "type": "swap", "in": "USDT", "out": "SOL",     "amount": 250 },
+    { "day": 5,  "type": "swap", "in": "SOL",  "out": "BONK",    "amount": 0.2 },
+    { "day": 6,  "type": "swap", "in": "USDC", "out": "JitoSOL", "amount": 75 },
+    { "day": 7,  "type": "swap", "in": "JUP",  "out": "USDC",    "amount": 300 },
+    { "day": 8,  "type": "swap", "in": "SOL",  "out": "WIF",     "amount": 1 },
+    { "day": 9,  "type": "swap", "in": "USDC", "out": "mSOL",    "amount": 40 },
+    { "day": 10, "type": "swap", "in": "BONK", "out": "SOL",     "amount": 5000000 },
+    { "day": 11, "type": "swap", "in": "USDC", "out": "SOL",     "amount": 1000, "community": true },
+    { "day": 12, "type": "swap", "in": "USDT", "out": "USDC",    "amount": 500 },
+    { "day": 13, "type": "swap", "in": "SOL",  "out": "JUP",     "amount": 2 },
+    { "day": 14, "type": "swap", "in": "WIF",  "out": "SOL",     "amount": 150 },
+    { "day": 15, "type": "swap", "in": "USDC", "out": "SOL",     "amount": 10000 }
+  ]
+}

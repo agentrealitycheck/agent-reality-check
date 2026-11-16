@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Reality Check</title>
+<meta name="description" content="A daily, open-source benchmark: five AI models, the same tools, the same crypto task, every answer scored against a stored ground truth.">
+<meta property="og:title" content="Agent Reality Check">
+<!-- Launch: delete the robots noindex line and the "Preview with sample data." prefix once data.js has sample: false. -->
+<meta name="robots" content="noindex">
+<meta property="og:description" content="Preview with sample data. Can AI agents do simple crypto tasks? Daily results with full traces and stored evidence.">
+<meta name="theme-color" content="#07090d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='6' width='20' height='20' rx='3' fill='%230d1117' stroke='%233ddc97' stroke-width='2'/%3E%3Crect x='11' y='11' width='10' height='10' rx='1' fill='%233ddc97'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<a class="skip" href="#today">Skip to today's run</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="6" y="6" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="11" y="11" width="10" height="10" rx="1" class="brand-die"/><g stroke="currentColor" stroke-width="1.4"><path d="M10 2v4M16 2v4M22 2v4M10 26v4M16 26v4M22 26v4M2 10h4M2 16h4M2 22h4M26 10h4M26 16h4M26 22h4"/></g></svg>
+      <span>Agent Reality Check</span>
+    </a>
+    <a class="btn btn-ghost gh" id="ghLink" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.71 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.65-.89-3.65-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.66 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg>
+      <span class="gh-label">Open source</span>
+    </a>
+    <nav class="links" id="navLinks" aria-label="Sections">
+      <a href="#today">Today</a>
+      <a href="#trace">Traces</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#models">Models</a>
+      <a href="#fails">Fails</a>
+      <a href="#method">Method</a>
+      <a href="#submit">Submit a task</a>
+    </nav>
+  </div>
+  <div class="banner" id="sampleBanner" hidden>Sample data. <span class="banner-long">Every number, result and fail on this page is a placeholder until real daily runs start.</span><span class="banner-short">All numbers are placeholders.</span></div>
+</header>
+
+<main id="top">
+
+  <section class="hero-band">
+    <div class="hero wrap">
+      <div class="hero-copy">
+        <p class="eyebrow" id="heroEyebrow">Daily AI agent benchmark</p>
+        <h1 id="heroTitle">Same tools. Same task.</h1>
+        <p class="lede">Every day, the same crypto task goes to five AI models with the same tools. Every answer is scored against a ground truth snapshotted before any model runs, and the raw evidence goes into the repo.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#today">See today's run</a>
+          <a class="btn btn-ghost" href="#trace">Read the traces</a>
+        </div>
+        <dl class="hero-meta" id="heroMeta"></dl>
+      </div>
+      <div class="hero-visual anim-zone" id="heroVisual">
+        <svg id="rack" viewBox="0 0 600 500" role="img" aria-label="A GPU rack with one node per AI model, wired to a verifier that holds today's ground truth"></svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-label="Benchmark totals">
+    <div class="stats" id="stats"></div>
+  </section>
+
+  <section class="wrap section" id="today">
+    <div class="section-head">
+      <p class="kicker">01 · Today's run</p>
+      <h2>Same tools. Same task. Same frozen data.</h2>
+    </div>
+    <div class="today-grid">
+      <article class="task-card" id="taskCard"></article>
+      <div class="table-card">
+        <div class="table-scroll">
+          <table class="results" id="resultsTable">
+            <caption class="sr-only">Today's results per model</caption>
+            <thead><tr><th scope="col">Model</th><th scope="col">Answer</th><th scope="col">vs. best</th><th scope="col">Result</th><th scope="col" class="hide-sm">Cost</th><th scope="col" class="hide-sm">Steps</th><th scope="col"><span class="sr-only">Trace</span></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="fotd" id="fotd" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="trace">
+    <div class="section-head">
+      <p class="kicker">02 · Inside a run</p>
+      <h2>Every thought, every tool call, every mistake.</h2>
+    </div>
+    <div class="trace-shell">
+      <div class="trace-tabs" id="traceTabs" role="tablist" aria-label="Model traces"></div>
+      <div class="trace-body" id="tracePanel" role="tabpanel" tabindex="0">
+        <ol class="trace-list" id="traceList"></ol>
+        <aside class="trace-side" id="traceSide" aria-label="Run telemetry"></aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="leaderboard">
+    <div class="section-head">
+      <p class="kicker">03 · Leaderboard</p>
+      <h2>Pass rate over time</h2>
+      <p class="muted sub" id="boardSub"></p>
+    </div>
+    <div class="board-grid">
+      <div class="chart-card">
+        <div class="legend" id="legend" role="group" aria-label="Show or hide models"></div>
+        <div class="chart-wrap" id="chartWrap" tabindex="0" role="group" aria-label="Pass rate chart. Use the left and right arrow keys to read each day.">
+          <svg id="chart" viewBox="0 0 760 320" preserveAspectRatio="none" role="img" aria-label="Line chart of cumulative pass rate per model"></svg>
+          <div class="tip" id="tip" hidden></div>
+        </div>
+        <p class="sr-only" id="chartLive" aria-live="polite"></p>
+        <p class="chart-empty muted" id="chartEmpty" hidden>No history yet. The chart starts after the first run.</p>
+      </div>
+      <div>
+        <ol class="board" id="board"></ol>
+        <p class="board-note" id="boardNote"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="models">
+    <div class="section-head">
+      <p class="kicker">04 · Models under test</p>
+      <h2>Five cards. One rulebook.</h2>
+    </div>
+    <div class="model-grid anim-zone" id="modelGrid"></div>
+  </section>
+
+  <section class="wrap section" id="fails">
+    <div class="section-head">
+      <p class="kicker">05 · Wall of fails</p>
+      <h2>The mistakes are the data.</h2>
+    </div>
+    <div class="fail-wall" id="failWall"></div>
+  </section>
+
+  <section class="wrap section" id="method">
+    <div class="section-head">
+      <p class="kicker">06 · Method</p>
+      <h2>How a run works</h2>
+    </div>
+
+    <div class="mb-card">
+      <div class="mb-scroll anim-zone" id="mbZone" tabindex="0" role="region" aria-label="Run pipeline diagram, scrolls sideways on small screens">
+        <svg id="mbSvg" viewBox="0 0 1100 300" role="img" aria-label="A motherboard diagram: the task drive feeds five GPU slots, which call a tools network chip, then a check chip, then a score readout"></svg>
+      </div>
+      <ol class="mb-captions">
+        <li><span class="mb-n">01</span><h3>Task</h3><p>One real task with a single checkable answer. Its hash is committed before any model runs.</p></li>
+        <li><span class="mb-n">02</span><h3><span id="nModels">5</span> models</h3><p>Same prompt, same tool schema, same step budget (max <span id="maxSteps">10</span> tool calls), default sampling settings for each model, listed per model.</p></li>
+        <li><span class="mb-n">03</span><h3>Tools</h3><p>Quotes, pools, token data. Every response is frozen at one slot and logged call by call. Before the run, the tool server captures responses for a fixed, published set of arguments (pairs, amounts, pool IDs) at the slot; any call outside that set returns a logged error.</p></li>
+        <li><span class="mb-n">04</span><h3>Check</h3><p>The answer is compared to the ground truth from the same snapshot. Method per category is listed in the roadmap.</p></li>
+        <li><span class="mb-n">05</span><h3>Score</h3><p>Pass if at most <span class="thr"></span>% below the best; any answer above the best fails. Distance is also published in bps, with the trace.</p></li>
+      </ol>
+    </div>
+
+    <div class="rules">
+      <div><h3>Fixed rules</h3><p>Prompt, tools and pass threshold are versioned in <a class="ilink" id="methLink" href="#">METHODOLOGY.md</a>. A rule change gets its own commit and a note on the site. Answers above the best reachable output count as wrong (hallucinated route).</p></div>
+      <div><h3>Reproducible</h3><p>Every run stores the slot, the raw JSON of every tool response, model IDs, prompts and outputs. Re-scoring the stored outputs is deterministic. Rerunning a model replays identical tool responses, but its output may differ because of sampling. The live market cannot be replayed; the snapshot can. <span id="runLinkWrap"></span></p></div>
+      <div><h3>No cherry-picking</h3><p>The run log is append-only in git. Failed or voided runs stay visible with a reason. No reruns of a day: a rerun is a new, separately labelled run. Tasks are committed (hash) before models run.</p></div>
+      <div><h3>No sponsors</h3><p>No model team can pay for placement. The project is independent and not affiliated with any model provider.</p></div>
+    </div>
+
+    <div class="roadmap-card">
+      <div class="roadmap-head">
+        <h3>60-day roadmap</h3>
+        <span class="mono muted" id="roadDay"></span>
+      </div>
+      <div class="road-bar meter"><span id="roadFill"></span></div>
+      <div class="roadmap" id="roadmap"></div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="submit">
+    <div class="submit-card">
+      <div>
+        <p class="kicker">07 · Submit a task</p>
+        <h2>Got a task AI agents should fail?</h2>
+        <p class="muted">It needs one answer we can check against stored data. Picked tasks run the next day, with credit to you.</p>
+      </div>
+      <form id="taskForm" novalidate>
+        <label for="fTask">Task</label>
+        <textarea id="fTask" rows="3" maxlength="1500" aria-describedby="eTask" placeholder="Is token 7xKX…pump sellable right now?"></textarea>
+        <p class="err" id="eTask" role="alert"></p>
+        <label for="fCheck">How we verify the answer</label>
+        <input id="fCheck" type="text" maxlength="300" aria-describedby="eCheck" placeholder="Simulate a sell transaction on a mainnet fork">
+        <p class="err" id="eCheck" role="alert"></p>
+        <label for="fHandle">Your X handle (for credit)</label>
+        <input id="fHandle" type="text" maxlength="40" placeholder="@yourhandle">
+        <p class="err" id="eForm" role="alert"></p>
+        <button class="btn btn-primary" type="submit">Submit on GitHub</button>
+        <p class="form-note muted">Opens a pre-filled GitHub issue. Nothing is sent until you post it.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="brand small">
+      <svg viewBox="0 0 32 32" width="20" height="20" aria-hidden="true"><rect x="6" y="6" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="11" y="11" width="10" height="10" rx="1" class="brand-die"/></svg>
+      <span>Agent Reality Check</span>
+    </div>
+    <p class="muted">An independent, open-source benchmark. Not affiliated with any model provider. Hardware art is generic.</p>
+    <p class="muted mono" id="footStamp"></p>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

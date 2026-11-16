@@ -1,0 +1,50 @@
+{
+  "_note": "Model IDs on free tiers change often. Run `py runner/run.py check` to see which IDs work today and swap them here.",
+
+  "site": {
+    "repo": "https://github.com/agentrealitycheck/agent-reality-check",
+    "xHandle": "agentrealitychk",
+    "passThresholdPct": 0.1,
+    "maxSteps": 10,
+    "totalDays": 60,
+    "methodologyPath": "/blob/main/METHODOLOGY.md"
+  },
+
+  "providers": {
+    "gemini":     { "base": "https://generativelanguage.googleapis.com/v1beta/openai", "keyEnv": "GEMINI_API_KEY",     "label": "Google AI Studio (free tier)", "minIntervalSec": 7 },
+    "groq":       { "base": "https://api.groq.com/openai/v1",                          "keyEnv": "GROQ_API_KEY",       "label": "Groq (free tier)",             "minIntervalSec": 3 },
+    "openrouter": { "base": "https://openrouter.ai/api/v1",                            "keyEnv": "OPENROUTER_API_KEY", "label": "OpenRouter (free models)",     "minIntervalSec": 4 }
+  },
+
+  "models": [
+    { "id": "gemini",   "name": "Gemini",   "vendor": "Google",          "color": "#afa9ec", "provider": "gemini",     "modelId": "gemini-3.5-flash" },
+    { "id": "gptoss",   "name": "GPT-OSS",  "vendor": "OpenAI (open)",   "color": "#85b7eb", "provider": "groq",       "modelId": "openai/gpt-oss-120b" },
+    { "id": "qwen",     "name": "Qwen",     "vendor": "Alibaba (open)",  "color": "#fac775", "provider": "groq",       "modelId": "qwen/qwen3.8-27b" },
+    { "id": "nemotron", "name": "Nemotron", "vendor": "NVIDIA (open)",   "color": "#5dcaa5", "provider": "openrouter", "modelId": "nvidia/nemotron-3-ultra-550b-a55b:free" },
+    { "id": "gemma",    "name": "Gemma",    "vendor": "Google (open)",   "color": "#f0997b", "provider": "gemini",     "modelId": "gemma-4-31b-it" }
+  ],
+
+  "jupiter": {
+    "freeUrl": "https://lite-api.jup.ag/swap/v1/quote",
+    "keyedUrl": "https://api.jup.ag/swap/v1/quote",
+    "dexes": ["Raydium", "Raydium CLMM", "Whirlpool", "Meteora DLMM"]
+  },
+
+  "tokens": {
+    "SOL":     { "mint": "So11111111111111111111111111111111111111112",  "decimals": 9 },
+    "USDC":    { "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", "decimals": 6 },
+    "USDT":    { "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB", "decimals": 6 },
+    "JUP":     { "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",  "decimals": 6 },
+    "BONK":    { "mint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263", "decimals": 5 },
+    "WIF":     { "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm", "decimals": 6 },
+    "JitoSOL": { "mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn", "decimals": 9 },
+    "mSOL":    { "mint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",  "decimals": 9 }
+  },
+
+  "roadmap": [
+    { "from": 1,  "to": 15, "name": "Swap routing",         "desc": "Best route and output for a fixed swap.",                       "verify": "Frozen aggregator quote at a fixed slot (offchain). Swap simulation cross-check planned." },
+    { "from": 16, "to": 30, "name": "Honeypot detection",   "desc": "Can the model tell if a token can be sold?",                    "verify": "Simulated sell transaction on a mainnet fork." },
+    { "from": 31, "to": 45, "name": "Yield reality",        "desc": "Advertised APY vs. what the contract actually pays.",           "verify": "Contract state read onchain at a fixed block." },
+    { "from": 46, "to": 60, "name": "Multi-step execution", "desc": "Full flows: bridge, swap, deposit. Final balance is the score.", "verify": "Final balances on a forked chain." }
+  ]
+}

@@ -1,0 +1,9 @@
+# secrets
+runner/.env
+# private: tweet/outreach strategy, never publish
+plan/
+# local tooling
+.claude/
+runner/mock-out/
+*.tmp
+__pycache__/
