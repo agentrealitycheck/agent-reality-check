@@ -89,7 +89,7 @@
   var results = rawResults.map(function (r) {
     var a = isNum(r.answer) ? r.answer : null;
     var d = deltaOf(a, GT);
-    return { model: r.model, answer: a, delta: d, pass: passes(d), cost: num(r.cost, 0), steps: Math.max(0, num(r.steps, 0)), latency: Math.max(0, num(r.latency, 0)) };
+    return { model: r.model, answer: a, delta: d, pass: passes(d), void: r.void === true && a == null, cost: num(r.cost, 0), steps: Math.max(0, num(r.steps, 0)), latency: Math.max(0, num(r.latency, 0)) };
   }).sort(function (a, b) {
     if (a.pass !== b.pass) return a.pass ? -1 : 1;
     var da = a.delta == null ? Infinity : Math.abs(a.delta), db = b.delta == null ? Infinity : Math.abs(b.delta);
@@ -97,8 +97,11 @@
   });
   var R = {};
   results.forEach(function (r) { R[r.model] = r; });
-  var failCount = results.filter(function (r) { return !r.pass; }).length;
-  var passCount = results.length - failCount;
+  // void = provider API failed: not counted as a pass or a fail
+  var voidCount = results.filter(function (r) { return r.void; }).length;
+  var failCount = results.filter(function (r) { return !r.pass && !r.void; }).length;
+  var passCount = results.length - failCount - voidCount;
+  function verdict(r) { return r.pass ? "Pass" : r.void ? "Void" : "Fail"; }
 
   var fotd = D.failOfTheDay && known(D.failOfTheDay.model) ? D.failOfTheDay : null;
   var fails = (Array.isArray(D.fails) ? D.fails : []).filter(function (x) { return x && known(x.model); });
@@ -204,12 +207,13 @@
     var eb = $("heroEyebrow");
     eb.textContent = (SAMPLE ? "SAMPLE · " : "") + "Day " + DAY + " · " + (D.category || "") + " · " + (D.date || "");
     if (SAMPLE) eb.classList.add("is-sample");
-    var n = results.length;
+    var n = results.length - voidCount;
     $("heroTitle").innerHTML = n === 0
       ? "Same tools. Same task."
       : failCount === 0
         ? "Same tools. Same task.<br>All " + n + " models passed today."
         : "Same tools. Same task.<br><em>" + failCount + " of " + n + " models</em> got it wrong today.";
+    if (voidCount && n > 0) $("heroTitle").innerHTML += '<span class="void-note"> ' + voidCount + " run" + (voidCount > 1 ? "s" : "") + " voided (provider API error).</span>";
     $("heroMeta").innerHTML =
       "<div><dt>Ground truth</dt><dd>" + esc(gtText()) + "</dd></div>" +
       "<div><dt>Source</dt><dd>" + esc(String(D.today.source || "n/a").split(",")[0]) + "</dd></div>" +
@@ -297,7 +301,7 @@
       svg("rect", { x: sx + 4, y: y + 8, width: 3, height: sledH - 16, rx: 1.5, fill: m.color }, g);
       text(g, { x: sx + 14, y: y + (compact ? 20 : 19), class: "sled-name" }, m.name);
       text(g, { x: sx + 14, y: y + (compact ? 37 : 35), class: "sled-stat " + (r.pass ? "is-pass" : "is-fail") },
-        r.delta == null ? "NO ANSWER" : (r.pass ? "PASS " : "FAIL ") + fmtDelta(r.delta));
+        r.void ? "VOID · API ERROR" : r.delta == null ? "NO ANSWER" : (r.pass ? "PASS " : "FAIL ") + fmtDelta(r.delta));
       // step-budget bar (real data: steps used / max steps)
       var by0 = y + sledH - (compact ? 13 : 14), bw = 62;
       svg("rect", { x: sx + 14, y: by0, width: bw, height: 5, rx: 1, class: "util-bg" }, g);
@@ -480,7 +484,7 @@
         '<td><div class="mname"><span class="dot" style="background:' + m.color + '"></span><div>' + esc(m.name) + '<span class="mvendor">' + esc(m.vendor || "") + "</span></div></div></td>" +
         '<td class="num">' + (r.answer == null ? "no answer" : r.answer.toFixed(4)) + "</td>" +
         '<td><div class="delta" title="' + esc(fmtBps(r.delta)) + '"><div class="delta-bar meter"><span style="width:' + w + "%;background:" + (r.pass ? "var(--pass)" : "var(--fail)") + '"></span></div>' + fmtDelta(r.delta) + "</div></td>" +
-        '<td><span class="pill ' + (r.pass ? "pass" : "fail") + '">' + (r.pass ? "Pass" : "Fail") + "</span></td>" +
+        '<td><span class="pill ' + (r.pass ? "pass" : r.void ? "void" : "fail") + '">' + verdict(r) + "</span></td>" +
         '<td class="num hide-sm">' + usd(r.cost) + "</td>" +
         '<td class="num hide-sm">' + r.steps + "</td>" +
         '<td class="go"><button type="button" class="go-btn" data-model="' + esc(r.model) + '" aria-label="Open trace for ' + esc(m.name) + '"><span class="go-label">Trace </span>→</button></td></tr>';
@@ -871,7 +875,7 @@
         "<h3>" + esc(m.name) + (SAMPLE ? ' <span class="tag-sample">SAMPLE</span>' : "") + '</h3><div class="vendor">' + esc(m.vendor || "") + "</div>" +
         '<div style="margin-top:10px">' +
         '<div class="kv"><span>Pass rate</span><span>' + esc(rate) + "</span></div>" +
-        '<div class="kv"><span>Today</span><span style="color:' + (r.pass ? "var(--pass)" : "var(--fail)") + '">' + (r.pass ? "Pass" : (r.answer == null ? "No answer" : "Fail")) + "</span></div>" +
+        '<div class="kv"><span>Today</span><span style="color:' + (r.pass ? "var(--pass)" : "var(--fail)") + '">' + (r.pass ? "Pass" : r.void ? "Void (API error)" : (r.answer == null ? "No answer" : "Fail")) + "</span></div>" +
         '<div class="kv"><span>Avg cost / run</span><span>' + (s.avgCost == null ? "n/a" : usd(s.avgCost)) + "</span></div>" +
         '<div class="kv"><span>Model ID</span><span>' + esc(m.modelId || "n/a") + "</span></div>" +
         '<div class="kv"><span>Endpoint</span><span>' + esc(m.provider || "n/a") + "</span></div>" +

@@ -533,7 +533,8 @@ def write_data_js(cfg, state, day_rec):
             "tools": TOOL_NAMES,
         },
         "models": models,
-        "results": [{k: r[k] for k in ("model", "answer", "cost", "steps", "latency")} for r in day_rec["results"]],
+        "results": [dict({k: r[k] for k in ("model", "answer", "cost", "steps", "latency")}, **({"void": True} if r["status"] == "api_error" else {}))
+                    for r in day_rec["results"]],
         "failOfTheDay": fotd,
         "traces": {r["model"]: r["trace"] for r in day_rec["results"]},
         "log": state["log"],

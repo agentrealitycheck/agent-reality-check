@@ -88,7 +88,8 @@ window.ARC_DATA = {
       "answer": null,
       "cost": 0.0,
       "steps": 9,
-      "latency": 253.2
+      "latency": 253.2,
+      "void": true
     },
     {
       "model": "gptoss",
@@ -102,7 +103,8 @@ window.ARC_DATA = {
       "answer": null,
       "cost": 0.0,
       "steps": 3,
-      "latency": 90.8
+      "latency": 90.8,
+      "void": true
     },
     {
       "model": "nemotron",
@@ -116,7 +118,8 @@ window.ARC_DATA = {
       "answer": null,
       "cost": 0.0,
       "steps": 2,
-      "latency": 191.9
+      "latency": 191.9,
+      "void": true
     }
   ],
   "failOfTheDay": null,

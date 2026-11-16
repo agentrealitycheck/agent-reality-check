@@ -554,3 +554,6 @@ form .btn { margin-top: 18px; align-self: flex-start; }
   .tm-wave { stroke-dashoffset: 0; }
   .model-card:hover svg.gpu { transform: none; }
 }
+
+.pill.void{color:var(--dim);border-color:var(--dim);background:transparent}
+.void-note{display:block;margin-top:.4em;font-family:'JetBrains Mono',monospace;font-size:.28em;letter-spacing:.02em;color:var(--dim)}
