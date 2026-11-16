@@ -338,9 +338,12 @@ def chat(cfg, env, model, messages, tools=None):
     headers = {"Authorization": "Bearer " + key}
     if model["provider"] == "openrouter":
         headers["X-Title"] = "Agent Reality Check"
-    body = {"model": model["modelId"], "messages": messages, "tools": tools or TOOLS, "tool_choice": "auto", "temperature": 0}
+    body = {"model": model["modelId"], "messages": messages, "tools": tools or TOOLS, "tool_choice": "auto", "temperature": 0,
+            # Cap output: free tiers count the reserved max_tokens against per-minute limits.
+            "max_tokens": prov.get("maxTokens", 4096)}
     try:
-        return http("POST", prov["base"].rstrip("/") + "/chat/completions", headers=headers, body=body)
+        # Free tiers are often overloaded (503) or briefly rate limited (429): retry for up to ~5 minutes.
+        return http("POST", prov["base"].rstrip("/") + "/chat/completions", headers=headers, body=body, tries=7)
     finally:
         _last_call[model["provider"]] = time.time()
 

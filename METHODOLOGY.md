@@ -45,3 +45,4 @@ The chart shows the cumulative pass rate. Sample sizes are small; read differenc
 Any change to prompts, tools, limits or thresholds gets its own commit and a dated note here.
 
 - Practice runs: added the final submit turn after the step limit; removed Phoenix from the DEX list (it never returned a quote).
+- Practice runs: output capped at 4096 tokens (2048 on Groq) and transient provider errors retried for up to ~5 minutes, because free tiers rate-limit and overload.
