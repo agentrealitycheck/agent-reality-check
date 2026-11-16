@@ -19,10 +19,10 @@ window.ARC_DATA = {
   "today": {
     "title": "Swap 50 USDC to SOL",
     "prompt": "You have 50 USDC on Solana. Using only the provided tools, find the route that returns the most SOL. Report the quoted output amount before any slippage tolerance, in whole SOL (not raw units), exactly as quoted: do not round, do not subtract fees or buffers. Then call submit_answer.",
-    "groundTruth": 0.703756206,
+    "groundTruth": 0.698541815,
     "unit": "SOL",
     "source": "Jupiter quote, snapshotted",
-    "slot": "470,202,579",
+    "slot": "470,215,864",
     "verify": "Ground truth and every tool response are snapshotted once at this slot, before any model runs. All models see the same frozen responses, so price drift cannot affect the score. The quote itself is an offchain aggregator response; a swap-simulation cross-check is planned.",
     "tools": [
       "get_token_info",
@@ -87,42 +87,39 @@ window.ARC_DATA = {
       "model": "gemini",
       "answer": null,
       "cost": 0.0,
-      "steps": 10,
-      "latency": 295.7
+      "steps": 9,
+      "latency": 253.2
     },
     {
       "model": "gptoss",
-      "answer": 0.703671931,
+      "answer": 0.698541815,
       "cost": 0.0,
       "steps": 6,
-      "latency": 23.7
+      "latency": 23.1
     },
     {
       "model": "qwen",
       "answer": null,
       "cost": 0.0,
-      "steps": 10,
-      "latency": 21.5
+      "steps": 3,
+      "latency": 90.8
     },
     {
       "model": "nemotron",
-      "answer": 0.703671931,
+      "answer": 0.698541815,
       "cost": 0.0,
-      "steps": 3,
-      "latency": 28.5
+      "steps": 2,
+      "latency": 24.9
     },
     {
       "model": "gemma",
-      "answer": 0.703671931,
+      "answer": null,
       "cost": 0.0,
-      "steps": 3,
-      "latency": 162.3
+      "steps": 2,
+      "latency": 191.9
     }
   ],
-  "failOfTheDay": {
-    "model": "gemini",
-    "text": "No answer after 10 steps."
-  },
+  "failOfTheDay": null,
   "traces": {
     "gemini": [
       {
@@ -147,82 +144,62 @@ window.ARC_DATA = {
       },
       {
         "t": "result",
-        "x": "{\"dexes\": [\"Raydium\", \"Raydium CLMM\", \"Whirlpool\", \"Meteora DLMM\", \"Phoenix\"]}"
+        "x": "{\"dexes\": [\"Raydium\", \"Raydium CLMM\", \"Whirlpool\", \"Meteora DLMM\"]}"
       },
       {
         "t": "tool",
-        "x": "get_quote({ amount: 50000000, output_mint: \"So1111…\", input_mint: \"EPjFWd…\" })"
+        "x": "get_quote({ output_mint: \"So1111…\", input_mint: \"EPjFWd…\", amount: 50000000 })"
       },
       {
         "t": "result",
-        "x": "outAmount 703671931 raw (= 0.703671931 SOL) · impact 0 · PancakeSwap 100%"
+        "x": "outAmount 698541815 raw (= 0.698541815 SOL) · impact 0 · ZeroFi 100%"
       },
       {
         "t": "tool",
-        "x": "get_quote({ dex: \"Raydium\", output_mint: \"So1111…\", amount: 50000000, input_mint: \"EPjFWd…\" })"
+        "x": "get_quote({ output_mint: \"So1111…\", dex: \"Raydium\", amount: 50000000, input_mint: \"EPjFWd…\" })"
       },
       {
         "t": "result",
-        "x": "outAmount 702614234 raw (= 0.702614234 SOL) · impact 0.0018221217733422284555309025 · Raydium 100%"
+        "x": "outAmount 695877865 raw (= 0.695877865 SOL) · impact 0.0038617045323353717972866562 · Raydium 100%"
       },
       {
         "t": "tool",
-        "x": "get_quote({ amount: 50000000, input_mint: \"EPjFWd…\", dex: \"Raydium CLMM\", output_mint: \"So1111…\" })"
+        "x": "get_quote({ output_mint: \"So1111…\", input_mint: \"EPjFWd…\", amount: 50000000, dex: \"Raydium CLMM\" })"
       },
       {
         "t": "result",
-        "x": "outAmount 703756206 raw (= 0.703756206 SOL) · impact 0.0002582349233974428008912196 · Raydium CLMM 100% → Raydium CLMM 100%"
+        "x": "outAmount 698465652 raw (= 0.698465652 SOL) · impact 0.0002105474222432186195599389 · Raydium CLMM 100%"
       },
       {
         "t": "tool",
-        "x": "get_quote({ amount: 50000000, output_mint: \"So1111…\", dex: \"Whirlpool\", input_mint: \"EPjFWd…\" })"
+        "x": "get_quote({ amount: 50000000, input_mint: \"EPjFWd…\", output_mint: \"So1111…\", dex: \"Whirlpool\" })"
       },
       {
         "t": "result",
-        "x": "outAmount 703624134 raw (= 0.703624134 SOL) · impact 0.0000006605549953996702771021 · Whirlpool 100%"
+        "x": "outAmount 698214197 raw (= 0.698214197 SOL) · impact 0.0005650942133397017751782595 · Whirlpool 100%"
       },
       {
         "t": "tool",
-        "x": "get_quote({ output_mint: \"So1111…\", dex: \"Meteora DLMM\", amount: 50000000, input_mint: \"EPjFWd…\" })"
+        "x": "get_quote({ amount: 50000000, input_mint: \"EPjFWd…\", dex: \"Meteora DLMM\", output_mint: \"So1111…\" })"
       },
       {
         "t": "result",
-        "x": "outAmount 703649570 raw (= 0.70364957 SOL) · impact 0.0000871968383078970288788339 · Meteora DLMM 100%"
+        "x": "outAmount 698460517 raw (= 0.698460517 SOL) · impact 0 · Meteora DLMM 100%"
       },
       {
         "t": "tool",
-        "x": "get_quote({ amount: 50000000, output_mint: \"So1111…\", input_mint: \"EPjFWd…\", dex: \"Phoenix\" })"
+        "x": "get_quote({ output_mint: \"So1111…\", direct_only: true, input_mint: \"EPjFWd…\", amount: 50000000 })"
+      },
+      {
+        "t": "result",
+        "x": "outAmount 698541256 raw (= 0.698541256 SOL) · impact 0 · ZeroFi 100%"
       },
       {
         "t": "error",
-        "x": "quote unavailable (400)"
-      },
-      {
-        "t": "tool",
-        "x": "get_quote({ amount: 50000000, output_mint: \"So1111…\", input_mint: \"EPjFWd…\", dex: \"Raydium CLMM\" })"
-      },
-      {
-        "t": "result",
-        "x": "outAmount 703756206 raw (= 0.703756206 SOL) · impact 0.0002582349233974428008912196 · Raydium CLMM 100% → Raydium CLMM 100%"
-      },
-      {
-        "t": "tool",
-        "x": "get_quote({ amount: 50000000, output_mint: \"So1111…\", input_mint: \"EPjFWd…\" })"
-      },
-      {
-        "t": "error",
-        "x": "Step limit reached"
+        "x": "API error 429: [{ \"error\": { \"code\": 429, \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google…"
       }
     ],
     "gptoss": [
-      {
-        "t": "tool",
-        "x": "list_dexes({ })"
-      },
-      {
-        "t": "result",
-        "x": "{\"dexes\": [\"Raydium\", \"Raydium CLMM\", \"Whirlpool\", \"Meteora DLMM\", \"Phoenix\"]}"
-      },
       {
         "t": "tool",
         "x": "get_token_info({ symbol: \"USDC\" })"
@@ -245,7 +222,23 @@ window.ARC_DATA = {
       },
       {
         "t": "result",
-        "x": "outAmount 703671931 raw (= 0.703671931 SOL) · impact 0 · PancakeSwap 100%"
+        "x": "outAmount 698541815 raw (= 0.698541815 SOL) · impact 0 · ZeroFi 100%"
+      },
+      {
+        "t": "tool",
+        "x": "list_dexes({ })"
+      },
+      {
+        "t": "result",
+        "x": "{\"dexes\": [\"Raydium\", \"Raydium CLMM\", \"Whirlpool\", \"Meteora DLMM\"]}"
+      },
+      {
+        "t": "tool",
+        "x": "get_quote({ amount: 50000000, direct_only: true, input_mint: \"EPjFWd…\", output_mint: \"So1111…\" })"
+      },
+      {
+        "t": "result",
+        "x": "outAmount 698541256 raw (= 0.698541256 SOL) · impact 0 · ZeroFi 100%"
       },
       {
         "t": "tool",
@@ -253,19 +246,11 @@ window.ARC_DATA = {
       },
       {
         "t": "result",
-        "x": "outAmount 702614234 raw (= 0.702614234 SOL) · impact 0.0018221217733422284555309025 · Raydium 100%"
-      },
-      {
-        "t": "tool",
-        "x": "get_quote({ amount: 50000000, dex: \"Whirlpool\", input_mint: \"EPjFWd…\", output_mint: \"So1111…\" })"
-      },
-      {
-        "t": "result",
-        "x": "outAmount 703624134 raw (= 0.703624134 SOL) · impact 0.0000006605549953996702771021 · Whirlpool 100%"
+        "x": "outAmount 695877865 raw (= 0.695877865 SOL) · impact 0.0038617045323353717972866562 · Raydium 100%"
       },
       {
         "t": "answer",
-        "x": "0.703671931 SOL via PancakeSwap (full aggregator)"
+        "x": "0.698541815 SOL via ZeroFi via Jupiter aggregator"
       }
     ],
     "qwen": [
@@ -291,63 +276,11 @@ window.ARC_DATA = {
       },
       {
         "t": "result",
-        "x": "outAmount 703671931 raw (= 0.703671931 SOL) · impact 0 · PancakeSwap 100%"
-      },
-      {
-        "t": "tool",
-        "x": "list_dexes({ })"
-      },
-      {
-        "t": "result",
-        "x": "{\"dexes\": [\"Raydium\", \"Raydium CLMM\", \"Whirlpool\", \"Meteora DLMM\", \"Phoenix\"]}"
-      },
-      {
-        "t": "tool",
-        "x": "get_quote({ amount: 50000000, dex: \"Raydium\", input_mint: \"EPjFWd…\", output_mint: \"So1111…\" })"
-      },
-      {
-        "t": "result",
-        "x": "outAmount 702614234 raw (= 0.702614234 SOL) · impact 0.0018221217733422284555309025 · Raydium 100%"
-      },
-      {
-        "t": "tool",
-        "x": "get_quote({ amount: 50000000, dex: \"Raydium CLMM\", input_mint: \"EPjFWd…\", output_mint: \"So1111…\" })"
-      },
-      {
-        "t": "result",
-        "x": "outAmount 703756206 raw (= 0.703756206 SOL) · impact 0.0002582349233974428008912196 · Raydium CLMM 100% → Raydium CLMM 100%"
-      },
-      {
-        "t": "tool",
-        "x": "get_quote({ amount: 50000000, dex: \"Whirlpool\", input_mint: \"EPjFWd…\", output_mint: \"So1111…\" })"
-      },
-      {
-        "t": "result",
-        "x": "outAmount 703624134 raw (= 0.703624134 SOL) · impact 0.0000006605549953996702771021 · Whirlpool 100%"
-      },
-      {
-        "t": "tool",
-        "x": "get_quote({ amount: 50000000, dex: \"Meteora DLMM\", input_mint: \"EPjFWd…\", output_mint: \"So1111…\" })"
-      },
-      {
-        "t": "result",
-        "x": "outAmount 703649570 raw (= 0.70364957 SOL) · impact 0.0000871968383078970288788339 · Meteora DLMM 100%"
-      },
-      {
-        "t": "tool",
-        "x": "get_quote({ amount: 50000000, dex: \"Phoenix\", input_mint: \"EPjFWd…\", output_mint: \"So1111…\" })"
+        "x": "outAmount 698541815 raw (= 0.698541815 SOL) · impact 0 · ZeroFi 100%"
       },
       {
         "t": "error",
-        "x": "quote unavailable (400)"
-      },
-      {
-        "t": "tool",
-        "x": "get_quote({ amount: 50000000, direct_only: true, input_mint: \"EPjFWd…\", output_mint: \"So1111…\" })"
-      },
-      {
-        "t": "result",
-        "x": "outAmount 703655285 raw (= 0.703655285 SOL) · impact 0.0000678829192649298051551527 · Meteora DAMM v2 100%"
+        "x": "API error 429: {\"error\":{\"message\":\"Request too large for model `qwen/qwen3.8-27b` in organization `org_01m7jjfz86eb3ta2f8d3jgfwqw` service tier `on_demand` on output tokens per minute (OTPM): Limit …"
       }
     ],
     "nemotron": [
@@ -361,29 +294,21 @@ window.ARC_DATA = {
       },
       {
         "t": "tool",
-        "x": "get_token_info({ symbol: \"SOL\" })"
-      },
-      {
-        "t": "result",
-        "x": "{\"symbol\": \"SOL\", \"mint\": \"So11111111111111111111111111111111111111112\", \"decimals\": 9}"
-      },
-      {
-        "t": "tool",
         "x": "get_quote({ input_mint: \"EPjFWd…\", output_mint: \"So1111…\", amount: 50000000 })"
       },
       {
         "t": "result",
-        "x": "outAmount 703671931 raw (= 0.703671931 SOL) · impact 0 · PancakeSwap 100%"
+        "x": "outAmount 698541815 raw (= 0.698541815 SOL) · impact 0 · ZeroFi 100%"
       },
       {
         "t": "answer",
-        "x": "0.703671931 SOL via PancakeSwap (100%)"
+        "x": "0.698541815 SOL via ZeroFi"
       }
     ],
     "gemma": [
       {
         "t": "think",
-        "x": "<thought>The user wants to find the best route to swap 50 USDC for SOL on Solana. I need to: 1. Get the mint addresses for USDC and SOL.The user wants to find the best route to swap 50 USDC for SOL on Solana. I need to: 1. Get the mint addresses for USDC and SOL. 2. Get a quote …"
+        "x": "<thought>The user wants to find the best route to swap 50 USDC for SOL on Solana. I need to: 1. Get the mint addresses for USDC and SOL. 2. Get a quote for swapping 50The user wants to find the best route to swap 50 USDC for SOL on Solana. I need to: 1. Get the mint addresses fo…"
       },
       {
         "t": "tool",
@@ -402,30 +327,14 @@ window.ARC_DATA = {
         "x": "{\"symbol\": \"SOL\", \"mint\": \"So11111111111111111111111111111111111111112\", \"decimals\": 9}"
       },
       {
-        "t": "think",
-        "x": "<thought>USDC mint: `EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v`, decimals: 6. SOL mint: `So11111111111111111111111111111111111111112`, decimals: 9. Amount to swap: 50 USDC. Raw amount = 50 * 10^6 = 50,000,000. Now I will get a quote for swapping 50,000,000 USDC to SOL.</thoug…"
-      },
-      {
-        "t": "tool",
-        "x": "get_quote({ output_mint: \"So1111…\", input_mint: \"EPjFWd…\", amount: 50000000 })"
-      },
-      {
-        "t": "result",
-        "x": "outAmount 703671931 raw (= 0.703671931 SOL) · impact 0 · PancakeSwap 100%"
-      },
-      {
-        "t": "think",
-        "x": "<thought>The `outAmount` is `703671931` in raw units. SOL has 9 decimals. Whole SOL = 703671931 / 10^9 = 0.703671931. The route is \"PancakeSwap\". I should double check if there are other routes or if I should just use the aggregator's best route. The `get_quote` tool without a `…"
-      },
-      {
-        "t": "answer",
-        "x": "0.703671931 SOL via PancakeSwap"
+        "t": "error",
+        "x": "API error 503: [{ \"error\": { \"code\": 503, \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\", \"status\": \"UNAVAILABLE\" } } ]"
       }
     ]
   },
   "log": {
     "gemini": {
-      "pass": "0",
+      "pass": "-",
       "cost": [
         0.0
       ]
@@ -437,7 +346,7 @@ window.ARC_DATA = {
       ]
     },
     "qwen": {
-      "pass": "0",
+      "pass": "-",
       "cost": [
         0.0
       ]
@@ -449,34 +358,13 @@ window.ARC_DATA = {
       ]
     },
     "gemma": {
-      "pass": "1",
+      "pass": "-",
       "cost": [
         0.0
       ]
     }
   },
-  "fails": [
-    {
-      "day": 1,
-      "model": "gemini",
-      "category": "Swap routing",
-      "title": "No answer after 10 steps",
-      "rule": "no answer",
-      "gt": 0.703756206,
-      "answer": null,
-      "unit": "SOL"
-    },
-    {
-      "day": 1,
-      "model": "qwen",
-      "category": "Swap routing",
-      "title": "No answer after 10 steps",
-      "rule": "no answer",
-      "gt": 0.703756206,
-      "answer": null,
-      "unit": "SOL"
-    }
-  ],
+  "fails": [],
   "roadmap": [
     {
       "from": 1,
