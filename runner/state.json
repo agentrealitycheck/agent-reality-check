@@ -1,42 +1,47 @@
 {
   "mode": "practice",
-  "day": 3,
+  "day": 4,
   "log": {
     "gemini": {
-      "pass": "---",
+      "pass": "---0",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0
       ]
     },
     "gptoss": {
-      "pass": "111",
+      "pass": "111-",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0
       ]
     },
     "qwen": {
-      "pass": "-11",
+      "pass": "-111",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0
       ]
     },
     "nemotron": {
-      "pass": "111",
+      "pass": "1111",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0
       ]
     },
     "gemma": {
-      "pass": "-11",
+      "pass": "-111",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0
@@ -98,6 +103,28 @@
       "answer": null,
       "unit": "JUP",
       "delta": null
+    },
+    {
+      "day": 4,
+      "model": "gemini",
+      "category": "Swap routing",
+      "title": "No answer after 10 steps",
+      "rule": "no answer",
+      "gt": 3.3271,
+      "answer": null,
+      "unit": "SOL",
+      "delta": null
+    },
+    {
+      "day": 4,
+      "model": "gptoss",
+      "category": "Swap routing",
+      "title": "Provider API failed (run voided)",
+      "rule": "provider error",
+      "gt": 3.3271,
+      "answer": null,
+      "unit": "SOL",
+      "delta": null
     }
   ],
   "history": [
@@ -121,6 +148,13 @@
       "title": "Swap 100 USDC to JUP",
       "gt": 395.014911,
       "passes": 4
+    },
+    {
+      "day": 4,
+      "date": "2026-11-19",
+      "title": "Swap 250 USDT to SOL",
+      "gt": 3.3271,
+      "passes": 3
     }
   ]
 }
