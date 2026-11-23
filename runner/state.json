@@ -1,10 +1,11 @@
 {
   "mode": "practice",
-  "day": 7,
+  "day": 8,
   "log": {
     "gemini": {
-      "pass": "---0111",
+      "pass": "---0111-",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -15,8 +16,9 @@
       ]
     },
     "gptoss": {
-      "pass": "111-111",
+      "pass": "111-1111",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -27,8 +29,9 @@
       ]
     },
     "qwen": {
-      "pass": "-111111",
+      "pass": "-1111111",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -39,8 +42,9 @@
       ]
     },
     "nemotron": {
-      "pass": "1111111",
+      "pass": "11111111",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -51,8 +55,9 @@
       ]
     },
     "gemma": {
-      "pass": "-111111",
+      "pass": "-1111111",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -140,6 +145,17 @@
       "answer": null,
       "unit": "SOL",
       "delta": null
+    },
+    {
+      "day": 8,
+      "model": "gemini",
+      "category": "Swap routing",
+      "title": "Provider API failed (run voided)",
+      "rule": "provider error",
+      "gt": 583.036572,
+      "answer": null,
+      "unit": "WIF",
+      "delta": null
     }
   ],
   "history": [
@@ -191,6 +207,13 @@
       "title": "Swap 300 JUP to USDC",
       "gt": 66.244214,
       "passes": 5
+    },
+    {
+      "day": 8,
+      "date": "2026-11-23",
+      "title": "Swap 1 SOL to WIF",
+      "gt": 583.036572,
+      "passes": 4
     }
   ]
 }
