@@ -1,10 +1,11 @@
 {
   "mode": "practice",
-  "day": 8,
+  "day": 9,
   "log": {
     "gemini": {
-      "pass": "---0111-",
+      "pass": "---0111--",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -16,8 +17,9 @@
       ]
     },
     "gptoss": {
-      "pass": "111-1111",
+      "pass": "111-11111",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -29,8 +31,9 @@
       ]
     },
     "qwen": {
-      "pass": "-1111111",
+      "pass": "-11111110",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -42,8 +45,9 @@
       ]
     },
     "nemotron": {
-      "pass": "11111111",
+      "pass": "111111110",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -55,8 +59,9 @@
       ]
     },
     "gemma": {
-      "pass": "-1111111",
+      "pass": "-1111111-",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -156,6 +161,50 @@
       "answer": null,
       "unit": "WIF",
       "delta": null
+    },
+    {
+      "day": 9,
+      "model": "gemini",
+      "category": "Swap routing",
+      "title": "Provider API failed (run voided)",
+      "rule": "provider error",
+      "gt": 0.405642393,
+      "answer": null,
+      "unit": "mSOL",
+      "delta": null
+    },
+    {
+      "day": 9,
+      "model": "qwen",
+      "category": "Swap routing",
+      "title": "Answered +99900.00% above the best reachable output",
+      "rule": "above best",
+      "gt": 0.405642393,
+      "answer": 405.642393,
+      "unit": "mSOL",
+      "delta": 99900.00000000001
+    },
+    {
+      "day": 9,
+      "model": "nemotron",
+      "category": "Swap routing",
+      "title": "Answered +99900.00% above the best reachable output",
+      "rule": "above best",
+      "gt": 0.405642393,
+      "answer": 405.642393,
+      "unit": "mSOL",
+      "delta": 99900.00000000001
+    },
+    {
+      "day": 9,
+      "model": "gemma",
+      "category": "Swap routing",
+      "title": "Provider API failed (run voided)",
+      "rule": "provider error",
+      "gt": 0.405642393,
+      "answer": null,
+      "unit": "mSOL",
+      "delta": null
     }
   ],
   "history": [
@@ -214,6 +263,13 @@
       "title": "Swap 1 SOL to WIF",
       "gt": 583.036572,
       "passes": 4
+    },
+    {
+      "day": 9,
+      "date": "2026-11-24",
+      "title": "Swap 40 USDC to mSOL",
+      "gt": 0.405642393,
+      "passes": 1
     }
   ]
 }
