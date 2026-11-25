@@ -1,10 +1,11 @@
 {
   "mode": "practice",
-  "day": 9,
+  "day": 10,
   "log": {
     "gemini": {
-      "pass": "---0111--",
+      "pass": "---0111---",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -17,8 +18,9 @@
       ]
     },
     "gptoss": {
-      "pass": "111-11111",
+      "pass": "111-111111",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -31,8 +33,9 @@
       ]
     },
     "qwen": {
-      "pass": "-11111110",
+      "pass": "-111111101",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -45,8 +48,9 @@
       ]
     },
     "nemotron": {
-      "pass": "111111110",
+      "pass": "1111111101",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -59,8 +63,9 @@
       ]
     },
     "gemma": {
-      "pass": "-1111111-",
+      "pass": "-1111111--",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -205,6 +210,28 @@
       "answer": null,
       "unit": "mSOL",
       "delta": null
+    },
+    {
+      "day": 10,
+      "model": "gemini",
+      "category": "Swap routing",
+      "title": "Provider API failed (run voided)",
+      "rule": "provider error",
+      "gt": 0.150812783,
+      "answer": null,
+      "unit": "SOL",
+      "delta": null
+    },
+    {
+      "day": 10,
+      "model": "gemma",
+      "category": "Swap routing",
+      "title": "Provider API failed (run voided)",
+      "rule": "provider error",
+      "gt": 0.150812783,
+      "answer": null,
+      "unit": "SOL",
+      "delta": null
     }
   ],
   "history": [
@@ -270,6 +297,13 @@
       "title": "Swap 40 USDC to mSOL",
       "gt": 0.405642393,
       "passes": 1
+    },
+    {
+      "day": 10,
+      "date": "2026-11-25",
+      "title": "Swap 5000000 BONK to SOL",
+      "gt": 0.150812783,
+      "passes": 3
     }
   ]
 }
