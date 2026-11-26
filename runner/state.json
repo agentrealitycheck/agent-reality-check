@@ -1,10 +1,11 @@
 {
   "mode": "practice",
-  "day": 10,
+  "day": 11,
   "log": {
     "gemini": {
-      "pass": "---0111---",
+      "pass": "---0111---0",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -18,8 +19,9 @@
       ]
     },
     "gptoss": {
-      "pass": "111-111111",
+      "pass": "111-1111111",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -33,8 +35,9 @@
       ]
     },
     "qwen": {
-      "pass": "-111111101",
+      "pass": "-1111111011",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -48,8 +51,9 @@
       ]
     },
     "nemotron": {
-      "pass": "1111111101",
+      "pass": "11111111011",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -63,8 +67,9 @@
       ]
     },
     "gemma": {
-      "pass": "-1111111--",
+      "pass": "-1111111--1",
       "cost": [
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -232,6 +237,17 @@
       "answer": null,
       "unit": "SOL",
       "delta": null
+    },
+    {
+      "day": 11,
+      "model": "gemini",
+      "category": "Swap routing",
+      "title": "No answer after 10 steps",
+      "rule": "no answer",
+      "gt": 14.038981536,
+      "answer": null,
+      "unit": "SOL",
+      "delta": null
     }
   ],
   "history": [
@@ -304,6 +320,13 @@
       "title": "Swap 5000000 BONK to SOL",
       "gt": 0.150812783,
       "passes": 3
+    },
+    {
+      "day": 11,
+      "date": "2026-11-26",
+      "title": "Swap 1000 USDC to SOL",
+      "gt": 14.038981536,
+      "passes": 4
     }
   ]
 }
